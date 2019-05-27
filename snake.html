@@ -74,26 +74,33 @@
     }
 
     function keyPush(event) {
-        // todo: check if arrow points to the opposite direction of velocity
         const keyName = event.key;
+        let x_v_, y_v_;
         switch (keyName) {
             case 'ArrowLeft':
-                x_v = -1;
-                y_v = 0;
+                x_v_ = -1;
+                y_v_ = 0;
                 break;
             case 'ArrowUp':
-                x_v = 0;
-                y_v = -1;
+                x_v_ = 0;
+                y_v_ = -1;
                 break;
             case 'ArrowRight':
-                x_v = 1;
-                y_v = 0;
+                x_v_ = 1;
+                y_v_ = 0;
                 break;
             case 'ArrowDown':
-                x_v = 0;
-                y_v = 1;
+                x_v_ = 0;
+                y_v_ = 1;
                 break;
         }
+        if (x_v === 0 && y_v === 0) {
+            // stub
+        } else if (x_v_ === -x_v || y_v_ === -y_v) {
+            return;
+        }
+        x_v = x_v_;
+        y_v = y_v_;
     }
 </script>
 </canvas>
