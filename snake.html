@@ -74,22 +74,22 @@
     }
 
     function keyPush(event) {
-        // todo: find less deprecated solution to key event listener
         // todo: check if arrow points to the opposite direction of velocity
-        switch (event.keyCode) {
-            case 37:
+        const keyName = event.key;
+        switch (keyName) {
+            case 'ArrowLeft':
                 x_v = -1;
                 y_v = 0;
                 break;
-            case 38:
+            case 'ArrowUp':
                 x_v = 0;
                 y_v = -1;
                 break;
-            case 39:
+            case 'ArrowRight':
                 x_v = 1;
                 y_v = 0;
                 break;
-            case 40:
+            case 'ArrowDown':
                 x_v = 0;
                 y_v = 1;
                 break;
