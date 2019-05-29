@@ -14,12 +14,13 @@ let grid_size = 20, tile_count = 20;
 let food_x = 15, food_y = 15;
 
 function game() {
-    // todo: make snake die when touching the edges
     context.fillStyle="black";
     context.fillRect(0, 0, canvas.width, canvas.height);
 
     snake.show();
+    snake.move();
 
+    // todo: make snake die when touching the edges
     if (food_x === snake.x && food_y === snake.y) {
         snake.length++;
         // todo: need a while loop to make sure the apple does not spawn on the snake body
