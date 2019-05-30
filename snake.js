@@ -69,7 +69,7 @@ function Snake() {
             }
         }
         return false;
-    }
+    };
 
     this.on_body = function (x, y) {
         for (let i = 0; i < this.trail.length; i++) {

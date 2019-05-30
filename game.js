@@ -7,7 +7,7 @@ window.onload=function () {
     context = canvas.getContext("2d");
     document.addEventListener("keydown", keyPush);
     snake = new Snake();
-    setInterval(game, 1000/15);
+    setInterval(game, 1000/10);
 };
 
 let grid_size = 20, tile_count = 20;
@@ -23,13 +23,19 @@ function game() {
     // todo: make snake die when touching the edges
     if (food_x === snake.x && food_y === snake.y) {
         snake.length++;
-        // todo: need a while loop to make sure the apple does not spawn on the snake body
-        food_x = Math.floor(Math.random() * tile_count);
-        food_y = Math.floor(Math.random() * tile_count);
+        spawn_food();
     }
 
     context.fillStyle="red";
     context.fillRect(food_x * grid_size, food_y * grid_size, grid_size - 2, grid_size - 2);
+}
+
+function spawn_food() {
+    food_x = Math.floor(Math.random() * tile_count);
+    food_y = Math.floor(Math.random() * tile_count);
+    if (snake.on_body(food_x, food_y)) {
+        spawn_food();
+    }
 }
 
 function keyPush(event) {
