@@ -18,16 +18,21 @@ function game() {
     context.fillRect(0, 0, canvas.width, canvas.height);
 
     snake.show();
-    snake.move();
 
-    // todo: make snake die when touching the edges
+    context.fillStyle="red";
+    context.fillRect(food_x * grid_size, food_y * grid_size, grid_size - 2, grid_size - 2);
+
+    if (!snake.move()) {
+        // snake.flash();
+        snake = new Snake();
+        spawn_food();
+        return;
+    }
+
     if (food_x === snake.x && food_y === snake.y) {
         snake.length++;
         spawn_food();
     }
-
-    context.fillStyle="red";
-    context.fillRect(food_x * grid_size, food_y * grid_size, grid_size - 2, grid_size - 2);
 }
 
 function spawn_food() {
