@@ -31,17 +31,15 @@ function Snake() {
     this.move = function() {
         let next_x = this.x + this.xspeed;
         let next_y = this.y + this.yspeed;
-        if (next_x === -1 || next_y === -1) {
+        if (next_x === -1 || next_y === -1)
             return false;
-        }
-        if (next_x === grid_size || next_y === grid_size) {
+        if (next_x === grid_size || next_y === grid_size)
             return false;
-        }
         if (this.stationary()) {
             // stub
-        } else if (this.on_body(next_x, next_y)) {
+        } else if (this.on_body(next_x, next_y))
             return false;
-        }
+
         this.x += this.xspeed;
         this.y += this.yspeed;
         this.trail.push({x:this.x, y:this.y});
@@ -53,21 +51,20 @@ function Snake() {
     };
 
     this.direct = function(x, y) {
+        // todo changing direction too fast result in eating itself
         if (this.stationary()) {
             // stub
-        } else if (x === -this.xspeed || y === -this.yspeed) {
+        } else if (x === -this.xspeed || y === -this.yspeed)
             return;
-        }
+
         this.xspeed = x;
         this.yspeed = y;
     };
 
     this.on_body = function (x, y) {
-        for (let i = 0; i < this.trail.length; i++) {
-            if (x === this.trail[i].x && y === this.trail[i].y) {
+        for (let i = 0; i < this.trail.length; i++)
+            if (x === this.trail[i].x && y === this.trail[i].y)
                 return true;
-            }
-        }
         return false;
     };
 
