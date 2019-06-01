@@ -6,29 +6,37 @@ function Snake() {
     this.trail = [];
     this.length = 5;
 
-    this.show = function() {
-        context.fillStyle="lime";
+    this.show = function () {
+        context.fillStyle = "lime";
         this.paint();
     };
 
-    this.flash = function() {
-        for (let i = 0; i < 2; i++) {
-            // todo fix flash blinking mechanism
-            context.fillStyle="white";
-            this.paint();
-            setTimeout(this.show, 1000);
-        }
+    this.flash = async function () {
+        let snake = this;
+        let is_white = false;
+        const alter_paint = function () {
+            if (is_white) {
+                is_white = false;
+                context.fillStyle = "white";
+            } else {
+                is_white = true;
+                context.fillStyle = "lime";
+            }
+            snake.paint();
+        };
+        for (let i = 0; i < 4; i++)
+             await setTimeout(alter_paint, 500);
     };
 
-    this.paint = function() {
+    this.paint = function () {
         for (let i = 0; i < this.trail.length; i++) {
             context.fillRect(this.trail[i].x * grid_size,
-                this.trail[i].y * grid_size,
-                grid_size - 2, grid_size - 2);
+                             this.trail[i].y * grid_size,
+                             grid_size - 2, grid_size - 2);
         }
     };
 
-    this.move = function() {
+    this.move = function () {
         let next_x = this.x + this.xspeed;
         let next_y = this.y + this.yspeed;
         if (next_x === -1 || next_y === -1)
@@ -42,7 +50,7 @@ function Snake() {
 
         this.x += this.xspeed;
         this.y += this.yspeed;
-        this.trail.push({x:this.x, y:this.y});
+        this.trail.push({x: this.x, y: this.y});
 
         while (this.trail.length > this.length) {
             this.trail.shift();
@@ -50,7 +58,7 @@ function Snake() {
         return true;
     };
 
-    this.direct = function(x, y) {
+    this.direct = function (x, y) {
         // todo changing direction too fast result in eating itself
         if (this.stationary()) {
             // stub

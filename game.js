@@ -15,7 +15,7 @@ let grid_size = 20,
 let food_x = 15,
     food_y = 15;
 
-function game() {
+async function game() {
     context.fillStyle = "black";
     context.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -26,9 +26,12 @@ function game() {
                      grid_size - 2, grid_size - 2);
 
     if (!snake.move()) {
-        // snake.flash();
-        snake = new Snake();
-        spawn_food();
+        snake.xspeed = 0;
+        snake.yspeed = 0;
+        await snake.flash().then(function () {
+            snake = new Snake();
+            spawn_food();
+        });
         return;
     }
 
