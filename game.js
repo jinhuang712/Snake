@@ -7,15 +7,15 @@ window.onload = function () {
     context = canvas.getContext("2d");
     document.addEventListener("keydown", keyPush);
     snake = new Snake();
-    setInterval(game, 1000 / 10);
+    game.timeID = setInterval(game, 1000 / 10);
 };
 
-let grid_size = 20,
+let grid_size  = 20,
     tile_count = 20;
 let food_x = 15,
     food_y = 15;
 
-function game() {
+function game(dead = 0) {
     context.fillStyle = "black";
     context.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -25,16 +25,32 @@ function game() {
     context.fillRect(food_x * grid_size, food_y * grid_size,
                      grid_size - 2, grid_size - 2);
 
-    if (!snake.move()) {
-        // snake.flash();
-        snake = new Snake();
-        spawn_food();
-        return;
-    }
-
-    if (food_x === snake.x && food_y === snake.y) {
-        snake.length++;
-        spawn_food();
+    if (!dead) {
+        if (!snake.move()) {
+            clearInterval(game.timeID);
+            setTimeout(`game(${dead + 1})`, 1000 / 10);
+            return;
+        }
+        if (food_x === snake.x && food_y === snake.y) {
+            snake.length++;
+            spawn_food();
+        }
+    } else {
+        if (dead > 8) {
+            snake = new Snake();
+            spawn_food();
+            game.timeID = setInterval(game, 1000 / 10);
+            return;
+        } else if (dead % 2) {
+            context.fillStyle = "white";
+            context.fillRect(0, 0, canvas.width, canvas.height);
+        } else {
+            snake.show();
+            context.fillStyle = "red";
+            context.fillRect(food_x * grid_size, food_y * grid_size,
+                             grid_size - 2, grid_size - 2);
+        }
+        setTimeout(`game(${dead + 1})`, 1000 / 10);
     }
 }
 
