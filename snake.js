@@ -11,23 +11,6 @@ function Snake() {
         this.paint();
     };
 
-    this.flash = async function () {
-        let snake = this;
-        let is_white = false;
-        const alter_paint = function () {
-            if (is_white) {
-                is_white = false;
-                context.fillStyle = "white";
-            } else {
-                is_white = true;
-                context.fillStyle = "lime";
-            }
-            snake.paint();
-        };
-        for (let i = 0; i < 4; i++)
-            await setTimeout(alter_paint, 500);
-    };
-
     this.paint = function () {
         for (let i = 0; i < this.trail.length; i++) {
             context.fillRect(this.trail[i].x * grid_size,
@@ -59,7 +42,6 @@ function Snake() {
     };
 
     this.direct = function (x, y) {
-        // todo changing direction too fast result in eating itself
         if (this.stationary()) {
             // stub
         } else if (x === -this.xspeed || y === -this.yspeed)
