@@ -25,7 +25,7 @@ function Snake() {
             snake.paint();
         };
         for (let i = 0; i < 4; i++)
-             await setTimeout(alter_paint, 500);
+            await setTimeout(alter_paint, 500);
     };
 
     this.paint = function () {
