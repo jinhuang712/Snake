@@ -61,11 +61,10 @@ function spawn_food() {
         spawn_food();
 }
 
-// todo fix pressing non-arrow-direction keys induced actions
 // todo fix pressing too quickly result in dead snake
 function keyPush(event) {
     const keyName = event.key;
-    let x_speed, y_speed;
+    let x_speed = 0, y_speed = 0;
     switch (keyName) {
         case 'ArrowLeft':
             x_speed = -1;
@@ -83,6 +82,8 @@ function keyPush(event) {
             x_speed = 0;
             y_speed = 1;
             break;
+        default:
+            return;
     }
     snake.direct(x_speed, y_speed);
 }
