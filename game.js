@@ -18,10 +18,29 @@ let food_x = 15,
 
 const FLASH_COUNT = 4;
 
+let directions = {
+    STATIC: 0,
+    UP:     1,
+    LEFT:   2,
+    DOWN:   3,
+    RIGHT:  4,
+    properties: {
+        0: {x_speed: 0,     y_speed: 0},
+        1: {x_speed: 0,     y_speed: -1},
+        2: {x_speed: -1,    y_speed: 0},
+        3: {x_speed: 0,     y_speed: 1},
+        4: {x_speed: 1,     y_speed: 0}
+    }
+};
+
+let next_direction = directions.STATIC;
+
 function game(dead = 0) {
     context.fillStyle = "black";
     context.fillRect(0, 0, canvas.width, canvas.height);
 
+    snake.direct(directions.properties[next_direction].x_speed,
+                 directions.properties[next_direction].y_speed);
     snake.show();
     render_food();
 
@@ -65,29 +84,23 @@ function render_food() {
                      GRID_SIZE - 2, GRID_SIZE - 2);
 }
 
-// todo fix pressing too quickly result in dead snake
+// todo could also implement action queue
 function keyPush(event) {
     const keyName = event.key;
-    let x_speed = 0, y_speed = 0;
     switch (keyName) {
-        case 'ArrowLeft':
-            x_speed = -1;
-            y_speed = 0;
-            break;
         case 'ArrowUp':
-            x_speed = 0;
-            y_speed = -1;
+            next_direction = directions.UP;
             break;
-        case 'ArrowRight':
-            x_speed = 1;
-            y_speed = 0;
+        case 'ArrowLeft':
+            next_direction = directions.LEFT;
             break;
         case 'ArrowDown':
-            x_speed = 0;
-            y_speed = 1;
+            next_direction = directions.DOWN;
+            break;
+        case 'ArrowRight':
+            next_direction = directions.RIGHT;
             break;
         default:
-            return;
+            break;
     }
-    snake.direct(x_speed, y_speed);
 }
