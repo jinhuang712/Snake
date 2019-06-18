@@ -55,6 +55,7 @@ function game(dead = 0) {
     } else {
         if (dead > FLASH_COUNT * 2) {
             snake = new Snake();
+            next_direction = directions.STATIC;
             spawn_food();
             game.timeID = setInterval(game, REFRESH_RATE);
             return;
