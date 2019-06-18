@@ -13,9 +13,9 @@ function Snake() {
 
     this.paint = function () {
         for (let i = 0; i < this.trail.length; i++) {
-            context.fillRect(this.trail[i].x * grid_size,
-                             this.trail[i].y * grid_size,
-                             grid_size - 2, grid_size - 2);
+            context.fillRect(this.trail[i].x * GRID_SIZE,
+                             this.trail[i].y * GRID_SIZE,
+                             GRID_SIZE - 2, GRID_SIZE - 2);
         }
     };
 
@@ -24,7 +24,7 @@ function Snake() {
         let next_y = this.y + this.yspeed;
         if (next_x === -1 || next_y === -1)
             return false;
-        if (next_x === grid_size || next_y === grid_size)
+        if (next_x === GRID_SIZE || next_y === GRID_SIZE)
             return false;
         if (this.stationary()) {
             // stub
