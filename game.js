@@ -1,24 +1,12 @@
 let canvas;
 let context;
 let snake;
+
 const REFRESH_RATE = 1000 / 10;
-
-window.onload = function () {
-    canvas = document.getElementById("canvas");
-    context = canvas.getContext("2d");
-    document.addEventListener("keydown", keyPush);
-    snake = new Snake();
-    game.timeID = setInterval(game, REFRESH_RATE);
-};
-
+const FLASH_COUNT = 4;
 const GRID_SIZE  = 20,
       TILE_COUNT = 20;
-let food_x = 15,
-    food_y = 15;
-
-const FLASH_COUNT = 4;
-
-let directions = {
+const directions = {
     STATIC: 0,
     UP:     1,
     LEFT:   2,
@@ -33,6 +21,16 @@ let directions = {
     }
 };
 
+window.onload = function () {
+    canvas = document.getElementById("canvas");
+    context = canvas.getContext("2d");
+    document.addEventListener("keydown", keyPush);
+    snake = new Snake();
+    game.timeID = setInterval(game, REFRESH_RATE);
+};
+
+let food_x = 15,
+    food_y = 15;
 let next_direction = directions.STATIC;
 
 function game(dead = 0) {
