@@ -37,15 +37,15 @@ function game(dead = 0) {
     context.fillStyle = "black";
     context.fillRect(0, 0, canvas.width, canvas.height);
 
-    snake.show();
-    render_food();
-    snake.direct(directions.properties[next_direction].x_speed,
-                 directions.properties[next_direction].y_speed);
 
     if (!dead) {
-        if (!snake.move()) {
-            snake.show();
-            render_food();
+        snake.direct(directions.properties[next_direction].x_speed,
+                     directions.properties[next_direction].y_speed);
+        let snakeMoved = snake.move();
+        render_food();
+        snake.show();
+
+        if (!snakeMoved) {
             clearInterval(game.timeID);
             setTimeout(`game(${dead + 1})`, REFRESH_RATE);
             return;
@@ -65,8 +65,8 @@ function game(dead = 0) {
             context.fillStyle = "white";
             context.fillRect(0, 0, canvas.width, canvas.height);
         } else {
-            snake.show();
             render_food();
+            snake.show();
         }
         setTimeout(`game(${dead + 1})`, REFRESH_RATE);
     }
