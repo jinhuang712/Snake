@@ -4,6 +4,8 @@ let snake;
 
 const REFRESH_RATE = 1000 / 10;
 const FLASH_COUNT = 4;
+
+// todo fix grid_size and tile_count actual meaning
 const GRID_SIZE  = 20,
       TILE_COUNT = 20;
 const directions = {
@@ -86,6 +88,7 @@ function render_food() {
 }
 
 // todo could also implement action queue
+// todo add WASD to cases
 function keyPush(event) {
     const keyName = event.key;
     switch (keyName) {
