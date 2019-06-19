@@ -88,20 +88,19 @@ function render_food() {
 }
 
 // todo could also implement action queue
-// todo add WASD to cases
 function keyPush(event) {
     const keyName = event.key;
     switch (keyName) {
-        case 'ArrowUp':
+        case 'ArrowUp': case 'w':
             next_direction = directions.UP;
             break;
-        case 'ArrowLeft':
+        case 'ArrowLeft': case 'a':
             next_direction = directions.LEFT;
             break;
-        case 'ArrowDown':
+        case 'ArrowDown': case 's':
             next_direction = directions.DOWN;
             break;
-        case 'ArrowRight':
+        case 'ArrowRight': case 'd':
             next_direction = directions.RIGHT;
             break;
         default:
