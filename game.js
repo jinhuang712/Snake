@@ -37,13 +37,15 @@ function game(dead = 0) {
     context.fillStyle = "black";
     context.fillRect(0, 0, canvas.width, canvas.height);
 
-    snake.direct(directions.properties[next_direction].x_speed,
-                 directions.properties[next_direction].y_speed);
     snake.show();
     render_food();
+    snake.direct(directions.properties[next_direction].x_speed,
+                 directions.properties[next_direction].y_speed);
 
     if (!dead) {
         if (!snake.move()) {
+            snake.show();
+            render_food();
             clearInterval(game.timeID);
             setTimeout(`game(${dead + 1})`, REFRESH_RATE);
             return;
