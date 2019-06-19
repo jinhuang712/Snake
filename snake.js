@@ -1,9 +1,9 @@
-function Snake() {
-    this.x = 10;
-    this.y = 10;
+function Snake(initx = 10, inity = 10) {
+    this.x = initx;
+    this.y = inity;
     this.xspeed = 0;
     this.yspeed = 0;
-    this.trail = [];
+    this.trail = [{x: this.x, y: this.y}];
     this.length = 5;
 
     this.show = function () {
@@ -19,6 +19,7 @@ function Snake() {
         }
     };
 
+    // todo fix the conditions for the snake to hit the border of the map
     this.move = function () {
         let next_x = this.x + this.xspeed;
         let next_y = this.y + this.yspeed;
