@@ -59,6 +59,7 @@ function game(dead = 0) {
             spawn_food();
         }
     } else {
+        // todo make death animation another function so the game func could be smaller in size
         if (dead > FLASH_COUNT * 2) {
             snake = new Snake();
             next_direction = directions.STATIC;
