@@ -19,13 +19,12 @@ function Snake(initx = 10, inity = 10) {
         }
     };
 
-    // todo fix the conditions for the snake to hit the border of the map
     this.move = function () {
         let next_x = this.x + this.xspeed;
         let next_y = this.y + this.yspeed;
         if (next_x === -1 || next_y === -1)
             return false;
-        if (next_x === GRID_SIZE || next_y === GRID_SIZE)
+        if (next_x === TILE_COUNT || next_y === TILE_COUNT)
             return false;
         if (this.stationary()) {
             // stub
