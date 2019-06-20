@@ -4,10 +4,9 @@ let snake;
 
 const REFRESH_RATE = 1000 / 10;
 const FLASH_COUNT = 4;
-
-// todo fix grid_size and tile_count actual meaning
 const GRID_SIZE  = 20,
       TILE_COUNT = 20;
+
 const directions = {
     STATIC: 0,
     UP:     1,
@@ -25,6 +24,8 @@ const directions = {
 
 window.onload = function () {
     canvas = document.getElementById("canvas");
+    canvas.width = GRID_SIZE * TILE_COUNT;
+    canvas.height = GRID_SIZE * TILE_COUNT;
     context = canvas.getContext("2d");
     document.addEventListener("keydown", keyPush);
     snake = new Snake();
