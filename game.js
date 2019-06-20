@@ -27,7 +27,7 @@ window.onload = function () {
     canvas = document.getElementById("canvas");
     context = canvas.getContext("2d");
     document.addEventListener("keydown", keyPush);
-    snake = new Snake(TILE_COUNT / 2, TILE_COUNT / 2);
+    snake = new Snake();
     spawn_food();
     game.timeID = setInterval(game, REFRESH_RATE);
 };
@@ -59,7 +59,7 @@ function game(dead = 0) {
         }
     } else {
         if (dead > FLASH_COUNT * 2) {
-            snake = new Snake(TILE_COUNT / 2, TILE_COUNT / 2);
+            snake = new Snake();
             next_direction = directions.STATIC;
             spawn_food();
             game.timeID = setInterval(game, REFRESH_RATE);

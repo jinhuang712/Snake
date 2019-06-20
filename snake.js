@@ -1,6 +1,7 @@
-function Snake(initx = 10, inity = 10) {
-    this.x = initx;
-    this.y = inity;
+function Snake(init_x = 10, init_y = 10) {
+    // todo later make snake spawn in random position
+    this.x = init_x;
+    this.y = init_y;
     this.xspeed = 0;
     this.yspeed = 0;
     this.trail = [{x: this.x, y: this.y}];
