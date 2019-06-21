@@ -22,15 +22,15 @@ const directions = {
     }
 };
 
+let world_matrix = [];
+
 window.onload = function () {
     canvas = document.getElementById("canvas");
     canvas.width = GRID_SIZE * TILE_COUNT;
     canvas.height = GRID_SIZE * TILE_COUNT;
     context = canvas.getContext("2d");
     document.addEventListener("keydown", keyPush);
-    snake = new Snake();
-    spawn_food();
-    game.timeID = setInterval(game, REFRESH_RATE);
+    initialize_world();
 };
 
 let food_x = 15,
@@ -40,7 +40,6 @@ let next_direction = directions.STATIC;
 function game(dead = 0) {
     context.fillStyle = "black";
     context.fillRect(0, 0, canvas.width, canvas.height);
-
 
     if (!dead) {
         snake.direct(directions.properties[next_direction].x_speed,
@@ -61,10 +60,7 @@ function game(dead = 0) {
     } else {
         // todo make death animation another function so the game func could be smaller in size
         if (dead > FLASH_COUNT * 2) {
-            snake = new Snake();
-            next_direction = directions.STATIC;
-            spawn_food();
-            game.timeID = setInterval(game, REFRESH_RATE);
+            initialize_world();
             return;
         } else if (dead % 2) {
             context.fillStyle = "white";
@@ -78,10 +74,16 @@ function game(dead = 0) {
 }
 
 function spawn_food() {
-    food_x = Math.floor(Math.random() * TILE_COUNT);
-    food_y = Math.floor(Math.random() * TILE_COUNT);
-    if (snake.on_body(food_x, food_y))
-        spawn_food();
+    if (snake.length >= TILE_COUNT * TILE_COUNT - 1)
+        return;
+    let emptyTile = [];
+    world_matrix.forEach((col, x) => col.forEach((tile, y) => {
+        if (x === snake.x && y === snake.y) return;
+        if (!tile) emptyTile.push({x, y});
+    }));
+    let {x, y} = emptyTile[Math.floor(Math.random() * emptyTile.length)];
+    food_x = x;
+    food_y = y;
 }
 
 function render_food() {
@@ -109,4 +111,19 @@ function keyPush(event) {
         default:
             break;
     }
+}
+
+function initialize_world() {
+    snake = new Snake();
+
+    //  initialize world matrix that stores if there is
+    //  a piece of snake body on that location
+    world_matrix = [];
+    for (let i = 0; i < TILE_COUNT; i++)
+        world_matrix.push(Array(TILE_COUNT).fill(false));
+    world_matrix[snake.x][snake.y] = true;
+
+    next_direction = directions.STATIC;
+    spawn_food();
+    game.timeID = setInterval(game, REFRESH_RATE);
 }
