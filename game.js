@@ -76,10 +76,14 @@ function game(dead = 0) {
 function spawn_food() {
     if (snake.length >= TILE_COUNT * TILE_COUNT - 1)
         return;
-    food_x = Math.floor(Math.random() * TILE_COUNT);
-    food_y = Math.floor(Math.random() * TILE_COUNT);
-    if (world_matrix[food_x][food_y])
-        spawn_food();
+    let emptyTile = [];
+    world_matrix.forEach((col, x) => col.forEach((tile, y) => {
+        if (x === snake.x && y === snake.y) return;
+        if (!tile) emptyTile.push({x, y});
+    }));
+    let {x, y} = emptyTile[Math.floor(Math.random() * emptyTile.length)];
+    food_x = x;
+    food_y = y;
 }
 
 function render_food() {
