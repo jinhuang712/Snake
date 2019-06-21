@@ -29,15 +29,17 @@ function Snake(init_x = 10, init_y = 10) {
             return false;
         if (this.stationary()) {
             // stub
-        } else if (this.on_body(next_x, next_y))
+        } else if (world_matrix[next_x][next_y])
             return false;
 
         this.x += this.xspeed;
         this.y += this.yspeed;
+        world_matrix[this.x][this.y] = true;
         this.trail.push({x: this.x, y: this.y});
 
         while (this.trail.length > this.length) {
-            this.trail.shift();
+            let piece = this.trail.shift();
+            world_matrix[piece.x][piece.y] = false;
         }
         return true;
     };
@@ -50,13 +52,6 @@ function Snake(init_x = 10, init_y = 10) {
 
         this.xspeed = x;
         this.yspeed = y;
-    };
-
-    this.on_body = function (x, y) {
-        for (let i = 0; i < this.trail.length; i++)
-            if (x === this.trail[i].x && y === this.trail[i].y)
-                return true;
-        return false;
     };
 
     this.stationary = function () {
