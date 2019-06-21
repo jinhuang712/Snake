@@ -41,7 +41,6 @@ function game(dead = 0) {
     context.fillStyle = "black";
     context.fillRect(0, 0, canvas.width, canvas.height);
 
-
     if (!dead) {
         snake.direct(directions.properties[next_direction].x_speed,
                      directions.properties[next_direction].y_speed);
@@ -75,6 +74,8 @@ function game(dead = 0) {
 }
 
 function spawn_food() {
+    if (snake.length >= TILE_COUNT * TILE_COUNT - 1)
+        return;
     food_x = Math.floor(Math.random() * TILE_COUNT);
     food_y = Math.floor(Math.random() * TILE_COUNT);
     if (world_matrix[food_x][food_y])
